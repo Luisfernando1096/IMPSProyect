@@ -8,7 +8,7 @@ module.exports = {
             const result = await pool.query('SELECT * FROM carreras');
             return result;
         } catch (error) {
-            console.error('Ocurrio un problema al consultar la lista de estudiantes: ', error);
+            console.error('Ocurrio un problema al consultar la lista de carreras: ', error);
         }
     },
 
@@ -25,7 +25,7 @@ module.exports = {
     // Insertar un estudiante
      insertarCarrera: async(nuevaCarrera) => {
         try{
-          const result = await pool.query("INSERT INTO carrera SET ? ", nuevaCarrera);
+          const result = await pool.query("INSERT INTO carreras SET ? ", nuevaCarrera);
           return result.insertId;
 
         }catch(error){
@@ -38,7 +38,7 @@ module.exports = {
         try {
         // Debes proporcionar los valores que deseas actualizar en la consulta SQL.
         const result = await pool.query(
-          'UPDATE carrera SET nombre = ? WHERE idcarrera = ?',
+          'UPDATE carreras SET carrera = ? WHERE idcarrera = ?',
           [nuevosDatosCarrera.carrera, nuevosDatosCarrera.idcarrera]          
         );
     
