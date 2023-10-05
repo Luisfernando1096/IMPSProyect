@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const queries = require('../repositories/EstudianteRepository');
-const carrerasQuery = require('../repositories/CarreraRepository');
+const queries = require('../repositories/CarreraRepository');
 
 // Endpoint para mostrar todos los estudiantes
 router.get('/', async (request, response) => {
-    const estudiantes = await queries.obtenerTodosLosEstudiantes();
+    const carreras = await queries.obtenerTodasLasCarreras();
 
-     response.render('estudiantes/listado', {estudiantes}); // Mostramos el listado de estudiantes
+     response.render('carreras/listado', {carreras}); // Mostramos el listado de estudiantes
 });
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo estudiante
