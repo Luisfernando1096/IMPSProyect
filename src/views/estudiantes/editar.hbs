@@ -4,7 +4,7 @@
     </div>
     <div class="row justify-content-center mt-4">
         <div class="col-md-4">
-            <form action="/estudiantes/editar" method="POST">
+            <form action="/estudiantes/editar/{{estudiante.idestudiante}}" method="POST">
                 <div class="form-group">
                     <input type="text" class="form-control" name="idestudiante" value="{{estudiante.idestudiante}}"
                         placeholder="Codigo del estudiante" autofocus />
@@ -24,11 +24,8 @@
                 <div class="form-group">
                     <select class="form-control" name="idcarrera">
                         {{#each lstCarreras}}
-                        {{#ifCond lstCarreras.idcarrera '===' estudiante.idcarrera}}
-                        <option value="{{this.idcarrera}}" selected>{{this.carrera}}</option>
-                        {{else}}
-                        <option value="{{this.idcarrera}}">{{this.carrera}}</option>
-                        {{/ifCond}}
+                        <option value="{{idcarrera}}" {{#eq idcarrera ../estudiante.idcarrera}}selected{{/eq}}>
+                            {{carrera}}</option>
                         {{/each}}
                     </select>
                 </div>

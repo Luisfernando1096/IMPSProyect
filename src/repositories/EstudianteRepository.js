@@ -33,23 +33,15 @@ module.exports = {
         }
     },
 
-    // Actualizar un estudiante por ID
-    actualizarEstudiante: async (nuevosDatosEstudiante) => {
-        try {
-        // Debes proporcionar los valores que deseas actualizar en la consulta SQL.
-        const result = await pool.query(
-          'UPDATE estudiantes SET nombre = ?, apellido = ?, email = ?, idcarrera = ?, usuario = ? WHERE idEstudiante = ?',
-          [nuevosDatosEstudiante.nombre, nuevosDatosEstudiante.apellido, nuevosDatosEstudiante.email, nuevosDatosEstudiante.idcarrera, nuevosDatosEstudiante.usuario, nuevosDatosEstudiante.idestudiante]          
-        );
-    
-        
-        return result.affectedRows > 0;
-        } catch (error) {
-        console.error('Error al actualizar el registro', error);
-        // Puedes manejar el error de otra manera si lo deseas, como lanzar una excepción.
-        throw error;
-        }
-  }, 
+    // Actualizar un estudiante
+    actualizarEstudiante: async(idestudiante, actualizacion) => {
+      try {
+        const resultado = await pool.query('UPDATE estudiantes SET ? WHERE idestudiante = ?', [actualizacion, idestudiante]);
+        return resultado.affectedRows > 0;  
+      } catch (error) {
+        console.log('Error al actualizar estudiante', error);
+      }
+    },
   // Eliminar un estudiante
   obtenerEstudiantePorId: async (idestudiante) => {
     try {

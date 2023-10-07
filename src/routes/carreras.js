@@ -56,27 +56,16 @@ router.get('/eliminar/:idcarrera', async(request, response) => {
     response.redirect('/carreras');
 });
 
-// Endpoint que permite editar un estudiante
-router.post('/editar', async (request, response) => {
-    try {
-      
-      // Obtenemos los nuevos datos del estudiante del cuerpo de la solicitud
-      const nuevosDatosCarrera = request.body;
-  
-      const resultado = await queries.actualizarCarrera(nuevosDatosCarrera);
-  
-      if (resultado) {
-        console.log('Carrera actualizada con éxito');
-        response.redirect('/carreras');
-        response.status(204).send(); // Enviamos una respuesta sin contenido (No Content) en caso de éxito.
-      } else {
-        console.log('No se pudo actualizar el carrera');
-        response.status(404).json({ mensaje: 'No se encontró la carrera para actualizar' });
-      }
-    } catch (error) {
-      console.error('Error al actualizar el carrera', error);
-      response.status(500).json({ error: 'Error interno del servidor' });
-    }
-  });
+// Enpoint que permite realizar la modificacion de una carrera
+router.post('/editar/:id', async(request, response) => {
+  const { id } = request.params;
+  const { idcarrera, carrera } = request.body;
+  nuevaCarrera = { idcarrera, carrera };
+
+  const actualizacion = await queries.actualizarCarrera(id, nuevaCarrera);
+
+  response.redirect('/carreras');
+
+});
 
 module.exports = router;

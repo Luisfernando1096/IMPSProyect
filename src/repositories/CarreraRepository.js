@@ -33,23 +33,15 @@ module.exports = {
         }
     },
 
-    // Actualizar un estudiante por ID
-    actualizarCarrera: async (nuevosDatosCarrera) => {
-        try {
-        // Debes proporcionar los valores que deseas actualizar en la consulta SQL.
-        const result = await pool.query(
-          'UPDATE carreras SET carrera = ? WHERE idcarrera = ?',
-          [nuevosDatosCarrera.carrera, nuevosDatosCarrera.idcarrera]          
-        );
-    
-        
-        return result.affectedRows > 0;
-        } catch (error) {
-        console.error('Error al actualizar el registro', error);
-        // Puedes manejar el error de otra manera si lo deseas, como lanzar una excepción.
-        throw error;
-        }
-  }, 
+    // Actualizar una carrera
+    actualizarCarrera: async(idcarrera, actualizacion) => {
+      try {
+        const resultado = await pool.query('UPDATE carreras SET ? WHERE idcarrera = ?', [actualizacion, idcarrera]);
+        return resultado.affectedRows > 0;  
+      } catch (error) {
+        console.log('Error al actualizar carrera', error);
+      }
+    },
   // Eliminar un estudiante
   obtenerCarreraPorId: async (idcarrera) => {
     try {
@@ -64,6 +56,5 @@ module.exports = {
       throw error; // Puedes lanzar el error para manejarlo en el lugar donde se llama a esta función
     }
   },
-  
   
 }

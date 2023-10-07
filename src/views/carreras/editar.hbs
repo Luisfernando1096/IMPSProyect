@@ -4,7 +4,7 @@
     </div>
     <div class="row justify-content-center mt-4">
         <div class="col-md-4">
-            <form action="/carreras/editar" method="POST">
+            <form action="/carreras/editar/{{carrera.idcarrera}}" method="POST">
                 <div class="form-group">
                     <input type="text" class="form-control" name="idcarrera" value="{{carrera.idcarrera}}"
                         placeholder="Codigo de carrera" autofocus />
