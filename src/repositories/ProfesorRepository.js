@@ -23,9 +23,9 @@ module.exports = {
     },
 
     // Insertar un estudiante
-     insertarProfesor: async(nuevaProfesor) => {
+     insertarProfesor: async(nuevoProfesor) => {
         try{
-          const result = await pool.query("INSERT INTO profesores SET ? ", nuevaProfesor);
+          const result = await pool.query("INSERT INTO profesores SET ? ", nuevoProfesor);
           return result.insertId;
 
         }catch(error){
@@ -33,7 +33,7 @@ module.exports = {
         }
     },
 
-    // Actualizar una Profesor
+    // Actualizar un estudiante
     actualizarProfesor: async(idprofesor, actualizacion) => {
       try {
         const resultado = await pool.query('UPDATE profesores SET ? WHERE idprofesor = ?', [actualizacion, idprofesor]);
@@ -42,19 +42,16 @@ module.exports = {
         console.log('Error al actualizar profesor', error);
       }
     },
-  // Eliminar un estudiante
-  obtenerProfesorPorId: async (idprofesor) => {
-    try {
-      const result = await pool.query('SELECT * FROM profesores WHERE idprofesor = ?', [idprofesor]);
-      if (result.length > 0) { // Verificar si se encontraron registros
-        return result[0]; // Devolver el primer registro encontrado (asumiendo que solo debería haber uno)
-      } else {
-        return null; // Devolver null si no se encontraron registros
+
+    // Obtener estudiante por ID
+    obtenerProfesorPorID: async(idprofesor) => {
+      try {
+        const [profesor] = await pool.query('SELECT * FROM profesores WHERE idprofesor = ?', [idprofesor]);
+
+        return profesor;
+      } catch (error) {
+        console.log('Ocurrio un problema al obtener informacion del profesor');
       }
-    } catch (error) {
-      console.error('Error al obtener el registro', error);
-      throw error; // Puedes lanzar el error para manejarlo en el lugar donde se llama a esta función
     }
-  },
-  
 }
+
