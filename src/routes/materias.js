@@ -33,8 +33,8 @@ router.get('/editar/:idmateria', async (request, response) => {
 // Endpoint para agregar un materia
 router.post('/agregar', async(request, response) => {
     // Falta agregar logica
-    const { idmateria, materia, idprofesor } = request.body;
-    const nuevaMateria = { idmateria, materia, idprofesor };
+    const { materia} = request.body;
+    const nuevaMateria = { materia};
 
     const resultado = await queries.insertarMateria(nuevaMateria);
 
@@ -55,8 +55,8 @@ router.get('/eliminar/:idmateria', async(request, response) => {
 // Endpoint que permite editar un materia
 router.post('/editar/:id', async (request, response) => {
   const {id} = request.params; 
-  const {  idmateria, materia, idprofesor } = request.body;
-  const nuevaMateria = { idmateria, materia, idprofesor };
+  const {  idmateria, materia } = request.body;
+  const nuevaMateria = { idmateria, materia};
 
   const actualizacion = await queries.actualizarMateria(id, nuevaMateria);
 

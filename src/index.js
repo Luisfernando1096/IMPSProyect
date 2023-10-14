@@ -33,6 +33,7 @@ app.use('/estudiantes', require('./routes/estudiantes')); // Configuracion de ru
 app.use('/carreras', require('./routes/carreras')); // Configuracion de ruta para estudiantes
 app.use('/profesores', require('./routes/profesores')); // Configuracion de ruta para estudiantes
 app.use('/materias', require('./routes/materias')); // Configuracion de ruta para estudiantes
+app.use('/grupos', require('./routes/grupos')); // Configuracion de ruta para grupos
 // Archivos publicos (aca se coloca todo el código al cual el navegador puede acceder)
 app.use(express.static(path.join(__dirname, 'public')));
 

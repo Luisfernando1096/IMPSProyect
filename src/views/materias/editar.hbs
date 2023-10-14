@@ -14,14 +14,6 @@
                         placeholder="Nombre del materia" autofocus />
                 </div>
                 <div class="form-group">
-                    <select class="form-control" name="idprofesor">
-                        {{#each lstProfesores}}
-                        <option value="{{idprofesor}}" {{#eq idprofesor ../materia.idprofesor}}selected{{/eq}}>
-                            {{profesor}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="form-group">
                     <button class="btn btn-success btn-block">Guardar</button>
                 </div>
             </form>

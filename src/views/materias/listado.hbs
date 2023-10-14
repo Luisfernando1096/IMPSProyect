@@ -16,7 +16,6 @@ text-white">Agregar materia</a>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">ID Profesor</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -25,11 +24,9 @@ text-white">Agregar materia</a>
                 <tr>
                     <th scope="row">{{idmateria}}</th>
                     <td>{{materia}}</td>
-                    <td>{{idprofesor}}</td>
                     <td>
                         <a class="btn btn-primary text-white" href="/materias/editar/{{idmateria}}">Modificar</a>
-                        <a href="/materias/eliminar/{{idmateria}}" class="btn
-btn-danger text-white">Eliminar</a>
+                        <a href="/materias/eliminar/{{idmateria}}" class="btn btn-danger text-white">Eliminar</a>
                     </td>
                 </tr>
                 {{/each}}

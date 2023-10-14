@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const queries = require('../repositories/ProfesorRepository');
-const formatDate = require('../lib/handlebars');
 
 // Endpoint para mostrar todos los carreras
 router.get('/', async (request, response) => {
@@ -23,20 +22,18 @@ router.get('/editar/:idprofesor', async(request, response) => {
     // Aca es de obtener el objeto del carrera
     const profesor = await queries.obtenerProfesorPorID(idprofesor);
     // Formatea la fecha aquí antes de pasarla a la vista
-    const fecha_nacimiento = formatDate(profesor.fecha_nacimiento);
 
-    response.render('profesores/editar',{idprofesor, profesor, fecha_nacimiento});
+    response.render('profesores/editar',{idprofesor, profesor});
 });
 
 
 // Enpoint que permite realizar la modificacion de una carrera
 router.post('/editar/:id', async(request, response) => {
     const { id } = request.params;
-    const { idprofesor, nombre, apellido, fch, profesion, genero, email } = request.body;
-    const fecha_nacimiento = formatDate(fch); // Formatea la fecha aquí
+    const { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email } = request.body;
     const nuevoProfesor = { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email};
 
-    const actualizacion = await queries.editarProfesor(id, nuevoProfesor);
+    const actualizacion = await queries.actualizarProfesor(id, nuevoProfesor);
 
     response.redirect('/profesores');
 
@@ -45,8 +42,7 @@ router.post('/editar/:id', async(request, response) => {
 // Endpoint para agregar una carrera
 router.post('/agregar', async(request, response) => {
     
-    const { idprofesor, nombre, apellido, fch, profesion, genero, email } = request.body;
-    const fecha_nacimiento = formatDate(fch); // Formatea la fecha aquí
+    const { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email } = request.body;
 
     const nuevoProfesor = { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email};
     
