@@ -3,7 +3,6 @@ const router = express.Router();
 const queries = require('../repositories/GrupoRepository');
 const materiasQuery = require('../repositories/MateriaRepository');
 const profesoresQuery = require('../repositories/ProfesorRepository');
-const carrerasQuery = require('../repositories/CarreraRepository');
 
 // Endpoint para mostrar todos los grupos
 router.get('/', async (request, response) => {
@@ -37,19 +36,20 @@ router.post('/agregar', async(request, response) => {
 // Endpoint que permite mostrar el formulario para editar un grupo
 router.get('/editar/:idgrupo', async(request, response) => {
     const {idgrupo} = request.params; 
-    const lstCarreras = await carrerasQuery.obtenerTodasLasCarreras();
+    const lstMaterias = await materiasQuery.obtenerTodasLasMaterias();
+    const lstProfesores = await profesoresQuery.obtenerTodosLosProfesores();
 
     // Aca es de obtener el objeto del grupo
     const grupo = await queries.obtenerGrupoPorID(idgrupo);
 
-    response.render('grupos/editar', {lstCarreras, idgrupo, grupo});
+    response.render('grupos/editar', {lstMaterias, lstProfesores, idgrupo, grupo});
 });
 
 // Endpoint que permite actualizar un grupo
 router.post('/editar/:id', async(request, response) => {
     const {id} = request.params; 
-    const {  idgrupo, nombre,apellido, email, idcarrera, usuario } = request.body;
-    const nuevogrupo = { idgrupo, nombre, apellido, email, idcarrera, usuario };
+    const {  num_grupo, anio, ciclo, idmateria, idprofesor } = request.body;
+    const nuevogrupo = { num_grupo, anio, ciclo, idmateria, idprofesor };
 
     const actualizacion = await queries.actualizarGrupo(id, nuevogrupo);
 

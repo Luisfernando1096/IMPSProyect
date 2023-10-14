@@ -5,7 +5,7 @@ module.exports = {
     // Consulta para obtener todos los grupos
     obtenerTodosLosGrupos: async() => {
         try {
-            const result = await pool.query('SELECT g.idgrupo, g.num_grupo, g.anio, g.ciclo, m.materia, p.nombre FROM grupos g, materias m, profesores p WHERE g.idmateria=m.idmateria AND g.idprofesor=p.idprofesor;');
+            const result = await pool.query('SELECT g.idgrupo, g.num_grupo, g.anio, g.ciclo, m.materia, p.nombre, m.idmateria, p.idprofesor FROM grupos g, materias m, profesores p WHERE g.idmateria=m.idmateria AND g.idprofesor=p.idprofesor;');
             return result;
         } catch (error) {
             console.error('Ocurrio un problema al consultar la lista de grupos: ', error);
