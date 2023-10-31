@@ -6,8 +6,9 @@ const profesoresQuery = require('../repositories/ProfesorRepository');
 // Endpoint para mostrar todos los materias
 router.get('/', async (request, response) => {
     const materias = await queries.obtenerTodasLasMaterias();
+    const activarMateria = "active";
 
-    response.render('materias/listado', { materias }); // Mostramos el listado de materias
+    response.render('materias/listado', { materias, activarMateria }); // Mostramos el listado de materias
 });
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo materia
@@ -38,9 +39,9 @@ router.post('/agregar', async (request, response) => {
 
     const resultado = await queries.insertarMateria(nuevaMateria);
     if (resultado) {
-        request.flash('success', 'Registro eliminado con exito');
+        request.flash('success', 'Registro insertado con exito');
     } else {
-        request.flash('error', 'Ocurrio un problema al eliminar el registro');
+        request.flash('error', 'Ocurrio un problema al insertar el registro');
     }
 
     response.redirect('/materias');

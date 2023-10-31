@@ -4,11 +4,7 @@
     </div>
     <div class="row justify-content-center mt-4">
         <div class="col-md-4">
-            <form action="/profesores/editar/{{profesor.idprofesor}}" method="POST">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="idprofesor" placeholder="Codigo del profesor"
-                        value="{{profesor.idprofesor}}" autofocus />
-                </div>                 
+            <form action="/profesores/editar/{{profesor.idprofesor}}" method="POST">               
                 <div class="form-group">
                     <input type="text" class="form-control" name="nombre" placeholder="Nombres del profesor" 
                         value="{{profesor.nombre}}"/>

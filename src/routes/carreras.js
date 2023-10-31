@@ -5,8 +5,9 @@ const queries = require('../repositories/CarreraRepository');
 // Endpoint para mostrar todos los estudiantes
 router.get('/', async (request, response) => {
     const carreras = await queries.obtenerTodasLasCarreras();
+    const activarCarrera = "active";
 
-    response.render('carreras/listado', { carreras }); // Mostramos el listado de estudiantes
+    response.render('carreras/listado', { carreras, activarCarrera }); // Mostramos el listado de estudiantes
 });
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo estudiante

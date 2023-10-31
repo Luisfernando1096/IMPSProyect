@@ -8,8 +8,9 @@ const estudiantesQuery = require('../repositories/EstudianteRepository');
 // Endpoint para mostrar todos los grupos
 router.get('/', async (request, response) => {
     const grupos = await queries.obtenerTodosLosGrupos();
+    const activarGrupo = "active";
 
-    response.render('grupos/listado', { grupos }); // Mostramos el listado de grupos
+    response.render('grupos/listado', { grupos, activarGrupo }); // Mostramos el listado de grupos
 });
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo grupo
@@ -29,6 +30,11 @@ router.post('/agregar', async (request, response) => {
 
     // Se trata de una insercion
     const resultado = await queries.insertarGrupo(nuevoGrupo);
+    if (resultado > 0) {
+        request.flash('success', 'Registro insertado con exito');
+    } else {
+        request.flash('error', 'Ocurrio un problema al insertar el registro');
+    }
 
     response.redirect('/grupos');
 });
@@ -54,6 +60,12 @@ router.post('/editar/:id', async (request, response) => {
 
     const actualizacion = await queries.actualizarGrupo(id, nuevogrupo);
 
+    if (actualizacion) {
+        request.flash('success', 'Registro actualizado con exito');
+    } else {
+        request.flash('error', 'Ocurrio un problema al actualizar el registro');
+    }
+
     response.redirect('/grupos');
 
 });
@@ -64,7 +76,9 @@ router.get('/eliminar/:idgrupo', async (request, response) => {
     const { idgrupo } = request.params;
     const resultado = await queries.eliminarGrupo(idgrupo);
     if (resultado > 0) {
-        console.log('Eliminado con éxito');
+        request.flash('success', 'Registro eliminado con exito');
+    } else {
+        request.flash('error', 'Ocurrio un problema al eliminar el registro');
     }
     response.redirect('/grupos');
 });

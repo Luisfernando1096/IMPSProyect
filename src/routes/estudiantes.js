@@ -6,8 +6,9 @@ const carrerasQuery = require('../repositories/CarreraRepository');
 // Endpoint para mostrar todos los estudiantes
 router.get('/', async (request, response) => {
     const estudiantes = await queries.obtenerTodosLosEstudiantes();
+    const activarEstudiante = "active";
 
-    response.render('estudiantes/listado', { estudiantes }); // Mostramos el listado de estudiantes
+    response.render('estudiantes/listado', { estudiantes, activarEstudiante }); // Mostramos el listado de estudiantes
 });
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo estudiante
@@ -38,7 +39,7 @@ router.post('/agregar', async (request, response) => {
 
     const resultado = await queries.insertarEstudiante(nuevoEstudiante);
     if (resultado) {
-        request.flash('success', 'Registro eliminado con exito');
+        request.flash('success', 'Registro agregado con exito');
     } else {
         request.flash('error', 'Ocurrio un problema al eliminar el registro');
     }

@@ -5,7 +5,8 @@ const queries = require('../repositories/ProfesorRepository');
 // Endpoint para mostrar todos los carreras
 router.get('/', async (request, response) => {
     const profesores = await queries.obtenerTodosLosProfesores();
-    response.render('profesores/listado', { profesores: profesores }); // Mostramos el listado de profesores
+    const activarProfesor = "active";
+    response.render('profesores/listado', { profesores, activarProfesor }); // Mostramos el listado de profesores
 });
 
 // Endpoint que permite mostrar el formulario para agregar una nueva carrera
@@ -30,8 +31,8 @@ router.get('/editar/:idprofesor', async (request, response) => {
 // Enpoint que permite realizar la modificacion de una carrera
 router.post('/editar/:id', async (request, response) => {
     const { id } = request.params;
-    const { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email } = request.body;
-    const nuevoProfesor = { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email };
+    const { nombre, apellido, fecha_nacimiento, profesion, genero, email } = request.body;
+    const nuevoProfesor = { nombre, apellido, fecha_nacimiento, profesion, genero, email };
 
     const actualizacion = await queries.actualizarProfesor(id, nuevoProfesor);
     if (actualizacion) {
@@ -47,16 +48,16 @@ router.post('/editar/:id', async (request, response) => {
 // Endpoint para agregar una carrera
 router.post('/agregar', async (request, response) => {
 
-    const { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email } = request.body;
+    const { nombre, apellido, fecha_nacimiento, profesion, genero, email } = request.body;
 
-    const nuevoProfesor = { idprofesor, nombre, apellido, fecha_nacimiento, profesion, genero, email };
+    const nuevoProfesor = { nombre, apellido, fecha_nacimiento, profesion, genero, email };
 
     // Se trata de una insercion
     const resultado = await queries.insertarProfesor(nuevoProfesor);
     if (resultado) {
-        request.flash('success', 'Registro eliminado con exito');
+        request.flash('success', 'Registro agregado con exito');
     } else {
-        request.flash('error', 'Ocurrio un problema al eliminar el registro');
+        request.flash('error', 'Ocurrio un problema al agregar el registro');
     }
 
     response.redirect('/profesores');
