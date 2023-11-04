@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const queries = require('../repositories/CarreraRepository');
+const { isLoggedIn } = require('../lib/auth');
 
 // Endpoint para mostrar todos los estudiantes
-router.get('/', async (request, response) => {
+router.get('/', isLoggedIn, async (request, response) => {
     const carreras = await queries.obtenerTodasLasCarreras();
     const activarCarrera = "active";
 
@@ -11,13 +12,13 @@ router.get('/', async (request, response) => {
 });
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo estudiante
-router.get('/agregar', async (request, response) => {
+router.get('/agregar', isLoggedIn, async (request, response) => {
     // Renderizamos el formulario
     response.render('carreras/agregar');
 });
 
 // Endpoint para mostrar el formulario de edición
-router.get('/editar/:idcarrera', async (request, response) => {
+router.get('/editar/:idcarrera', isLoggedIn, async (request, response) => {
     try {
         const { idcarrera } = request.params;
         const carrera = await queries.obtenerCarreraPorId(idcarrera);
@@ -36,7 +37,7 @@ router.get('/editar/:idcarrera', async (request, response) => {
 
 
 // Endpoint para agregar un estudiante
-router.post('/agregar', async (request, response) => {
+router.post('/agregar', isLoggedIn, async (request, response) => {
     // Falta agregar logica
     const { idcarrera, carrera } = request.body;
     const nuevaCarrera = { idcarrera, carrera };
@@ -52,7 +53,7 @@ router.post('/agregar', async (request, response) => {
 });
 
 // Endpoint que permite eliminar un estudiante
-router.get('/eliminar/:idcarrera', async (request, response) => {
+router.get('/eliminar/:idcarrera', isLoggedIn, async (request, response) => {
     // Desestructuramos el objeto que nos mandan en la peticion y extraemos el idestudiante
     const { idcarrera } = request.params;
     const resultado = await queries.eliminarCarrera(idcarrera);
@@ -65,7 +66,7 @@ router.get('/eliminar/:idcarrera', async (request, response) => {
 });
 
 // Enpoint que permite realizar la modificacion de una carrera
-router.post('/editar/:id', async (request, response) => {
+router.post('/editar/:id', isLoggedIn, async (request, response) => {
     const { id } = request.params;
     const { idcarrera, carrera } = request.body;
     nuevaCarrera = { idcarrera, carrera };

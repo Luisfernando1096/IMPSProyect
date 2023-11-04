@@ -18,7 +18,7 @@ text-white">Agregar estudiante</a>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
                     <th scope="col">Email</th>
-                    <th scope="col">ID Carrera</th>
+                    <th scope="col">Carrera</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Opciones</th>
                 </tr>
@@ -30,12 +30,11 @@ text-white">Agregar estudiante</a>
                     <td>{{nombre}}</td>
                     <td>{{apellido}}</td>
                     <td>{{email}}</td>
-                    <td>{{idcarrera}}</td>
+                    <td>{{carrera}}</td>
                     <td>{{usuario}}</td>
                     <td>
-                        <a class="btn btn-primary text-white" href="/estudiantes/editar/{{idestudiante}}">Modificar</a>
-                        <a href="/estudiantes/eliminar/{{idestudiante}}" class="btn
-btn-danger text-white">Eliminar</a>
+                        <a class="btn btn-success text-white" href="/estudiantes/editar/{{idestudiante}}">Modificar</a>
+                        <a href="/estudiantes/eliminar/{{idestudiante}}" class="btn btn-danger text-white">Eliminar</a>
                     </td>
                 </tr>
                 {{/each}}
